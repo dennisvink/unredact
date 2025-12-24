@@ -2,6 +2,10 @@
 
 Minimal Flask app that removes PDF redaction overlays using `pypdf`. Upload a PDF and receive an unredacted copy back.
 
+# Demo
+
+https://unredact.net
+
 ## Build
 
 ```bash
