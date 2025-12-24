@@ -18,7 +18,16 @@ HTML = """<!doctype html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Unredact.net</title>
+    <title>Unredact.net — Remove PDF Redaction Overlays</title>
+    <meta property="og:title" content="Unredact.net — Remove PDF Redaction Overlays" />
+    <meta
+      property="og:description"
+      content="Upload a PDF with redaction overlays, and get a cleaned version back."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ image_url }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="{{ image_url }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -134,7 +143,9 @@ def _unredact_pdf(data: bytes) -> BytesIO:
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template_string(HTML)
+        base_url = request.url_root.rstrip("/")
+        image_url = f"{base_url}/static/unredact.jpg"
+        return render_template_string(HTML, image_url=image_url)
 
     uploaded = request.files.get("pdf")
     if not uploaded or not uploaded.filename:
